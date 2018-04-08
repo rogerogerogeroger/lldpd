@@ -16,8 +16,8 @@
        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"
        alt="GitHub badge" title="Fork me on GitHub">
 </a>
-<a class="badge latest-version" href="https://media.luffy.cx/files/lldpd/lldpd-0.9.9.tar.gz">
-  <div title="Download latest version of lldpd">0.9.9</div>
+<a class="badge latest-version" href="https://media.luffy.cx/files/lldpd/lldpd-1.0.0.tar.gz">
+  <div title="Download latest version of lldpd">1.0.0</div>
 </a>
 
   <nav>
@@ -52,7 +52,7 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
 </ul>
 </div>
 <h1 id="lldpd8">lldpd.8</h1>
-<p>Here is the manual page for <code>lldpd</code> (version&nbsp;0.9.9):</p>
+<p>Here is the manual page for <code>lldpd</code> (version&nbsp;1.0.0):</p>
 <div class='manpage'><div><b><span class="caps">NAME</span></b>
      <b>lldpd</b> &#8212; <span class="caps">LLDP</span> daemon
 
@@ -345,7 +345,7 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
      &lt;pyr@openbsd.org&gt;, and Vincent Bernat &lt;bernat@luffy.cx&gt;.</div></div>
 
 <h1 id="lldpcli8">lldpcli.8</h1>
-<p>Here is the manual page for <code>lldpcli</code> and <code>lldpctl</code> (version&nbsp;0.9.9):</p>
+<p>Here is the manual page for <code>lldpcli</code> and <code>lldpctl</code> (version&nbsp;1.0.0):</p>
 <div class='manpage'><div><b><span class="caps">NAME</span></b>
      <b>lldpcli</b>, <b>lldpctl</b> &#8212; control <span class="caps">LLDP</span> daemon
 
@@ -482,6 +482,16 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              from node name, kernel name, kernel version, build date and
              architecture instead.
 
+       <b>configure</b> <b>system</b> <b>chassisid</b> <u>description</u>
+
+             Override chassis <span class="caps">ID</span> with the provided value instead of using
+             <span class="caps">MAC</span> address from one interface or host name.
+
+       <b>unconfigure</b> <b>system</b> <b>chassisid</b>
+
+             Do not override chassis <span class="caps">ID</span> and use a value computed from one of
+             the interface <span class="caps">MAC</span> address (or host name if none is found).
+
        <b>configure</b> <b>system</b> <b>platform</b> <u>description</u>
 
              Override platform description with the provided value instead
@@ -515,6 +525,24 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
 
              Remove any previously configured interface pattern and use all
              physical interfaces. This option undoes the previous one.
+
+       <b>configure</b> <b>system</b> <b>interface</b> <b>permanent</b> <u>pattern</u>
+
+             Specify interfaces whose configuration is permanently kept by
+             <b>lldpd</b>.  By default, <b>lldpd</b> disregard any data about interfaces
+             when they are removed from the system (statistics, custom con-
+             figuration). This option allows one to specify a pattern simi-
+             lar to the interface pattern. If an interface disappear but
+             matches the pattern, its data is kept in memory and reused if
+             the interface reappear at some point. For example, on Linux,
+             one could use the pattern <u>eth*,eno*,enp*</u>, which should match
+             fixed interfaces on most systems.
+
+       <b>unconfigure</b> <b>system</b> <b>interface</b> <b>permanent</b>
+
+             Remove any previously configured permanent interface pattern.
+             Any interface removed from the system will be forgotten. This
+             option undoes the previous one.
 
        <b>configure</b> <b>system</b> <b>interface</b> <b>description</b>
 
@@ -609,7 +637,6 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
        <b>configure</b> <b>lldp</b> <b>portidsubtype</b> <b>ifname</b> | <b>macaddress</b>
 
        <b>configure</b> [ports <u>ethX</u> [,&#8230;]] <b>lldp</b> <b>portidsubtype</b> <b>local</b> <u>value</u>
-       [<b>description</b> <u>description</u>]
 
              Force port <span class="caps">ID</span> subtype. By default, <b>lldpd</b> will use the <span class="caps">MAC</span>
              address as port identifier and the interface name as port
@@ -619,8 +646,11 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              can force the port identifier to be the interface name (with
              <b>ifname</b>), the <span class="caps">MAC</span> address (with <b>macaddress</b>) or a local value
              (with <b>value</b>).  In the latest case, the local value should be
-             provided.  Optionally, a port description can also be provided
-             after the local value.
+             provided.
+
+       <b>configure</b> [ports <u>ethX</u> [,&#8230;]] <b>lldp</b> <b>portdescription</b> <u>description</u>
+
+             Force port description to the provided string.
 
        <b>configure</b> <b>lldp</b> <b>tx-interval</b> <u>interval</u>
 
