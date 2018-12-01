@@ -16,8 +16,8 @@
        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"
        alt="GitHub badge" title="Fork me on GitHub">
 </a>
-<a class="badge latest-version" href="https://media.luffy.cx/files/lldpd/lldpd-1.0.1.tar.gz">
-  <div title="Download latest version of lldpd">1.0.1</div>
+<a class="badge latest-version" href="https://media.luffy.cx/files/lldpd/lldpd-1.0.2.tar.gz">
+  <div title="Download latest version of lldpd">1.0.2</div>
 </a>
 
   <nav>
@@ -129,13 +129,13 @@ in <code>/etc/group</code>. The user must not be able to login, have its home as
 command instead or install the <span class="caps">GNU</span> Readline library on your&nbsp;system.</p>
 <h1 id="macos">macOS</h1>
 <p>The easiest way is to use the
-<a href="https://media.luffy.cx/files/lldpd/lldpd-1.0.1.pkg" title="lldpd 1.0.1 version for OSX">installer package for macOS</a>. You need at least&nbsp;macOS 10.6.</p>
+<a href="https://media.luffy.cx/files/lldpd/lldpd-1.0.2.pkg" title="lldpd 1.0.2 version for OSX">installer package for macOS</a>. You need at least&nbsp;macOS 10.6.</p>
 <p>Alternatively, you can use <a href="http://brew.sh/" title="Homebrew: the missing package manager for macOS">Homebrew</a>. Check the website if you
 don&#8217;t have it, it is easy to install. Once installed, type in a&nbsp;terminal:</p>
 <div class="codehilite"><pre><span></span><span class="gp">$</span> brew install https://raw.github.com/vincentbernat/lldpd/master/osx/lldpd.rb
 <span class="gp">#</span><span class="c1">####################################################################### 100.0%</span>
-<span class="go">==&gt; Downloading https://media.luffy.cx/files/lldpd/lldpd-1.0.1.tar.gz</span>
-<span class="go">==&gt; ./configure --prefix=/usr/local/Cellar/lldpd/1.0.1 --with-xml --with-readline</span>
+<span class="go">==&gt; Downloading https://media.luffy.cx/files/lldpd/lldpd-1.0.2.tar.gz</span>
+<span class="go">==&gt; ./configure --prefix=/usr/local/Cellar/lldpd/1.0.2 --with-xml --with-readline</span>
 <span class="go">[...]</span>
 </pre></div>
 
@@ -147,11 +147,11 @@ when the system&nbsp;starts.</p>
 <h1 id="install-from-source">Install from&nbsp;source</h1>
 <p>This is the last resort method. Other methods are usually&nbsp;simpler.</p>
 <p>You first need to download the latest version
-(<a href="https://media.luffy.cx/files/lldpd/lldpd-1.0.1.tar.gz" title="lldpd 1.0.1 version">1.0.1</a>) (do not download it
+(<a href="https://media.luffy.cx/files/lldpd/lldpd-1.0.2.tar.gz" title="lldpd 1.0.2 version">1.0.2</a>) (do not download it
 from GitHub, you would get an incomplete archive). You need a working
 build&nbsp;environment.</p>
-<div class="codehilite"><pre><span></span><span class="gp">$</span> tar zxvf lldpd-1.0.1.tar.gz
-<span class="gp">$</span> <span class="nb">cd</span> lldpd-1.0.1
+<div class="codehilite"><pre><span></span><span class="gp">$</span> tar zxvf lldpd-1.0.2.tar.gz
+<span class="gp">$</span> <span class="nb">cd</span> lldpd-1.0.2
 <span class="gp">$</span> mkdir build
 <span class="gp">$</span> <span class="nb">cd</span> build
 <span class="gp">$</span> ../configure
@@ -191,7 +191,7 @@ as you except and&nbsp;continue.</p>
 <span class="go">  CCLD   libcompat.la</span>
 <span class="go">  CC     log.lo</span>
 <span class="go">[...]</span>
-<span class="go">make[1]: Leaving directory `/home/bernat/src/lldpd-1.0.1&#39;</span>
+<span class="go">make[1]: Leaving directory `/home/bernat/src/lldpd-1.0.2&#39;</span>
 </pre></div>
 
 
