@@ -16,8 +16,8 @@
        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"
        alt="GitHub badge" title="Fork me on GitHub">
 </a>
-<a class="badge latest-version" href="https://media.luffy.cx/files/lldpd/lldpd-1.0.3.tar.gz">
-  <div title="Download latest version of lldpd">1.0.3</div>
+<a class="badge latest-version" href="https://media.luffy.cx/files/lldpd/lldpd-1.0.4.tar.gz">
+  <div title="Download latest version of lldpd">1.0.4</div>
 </a>
 
   <nav>
@@ -52,7 +52,7 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
 </ul>
 </div>
 <h1 id="lldpd8">lldpd.8</h1>
-<p>Here is the manual page for <code>lldpd</code> (version&nbsp;1.0.3):</p>
+<p>Here is the manual page for <code>lldpd</code> (version&nbsp;1.0.4):</p>
 <div class='manpage'><div><b><span class="caps">NAME</span></b>
      <b>lldpd</b> &#8212; <span class="caps">LLDP</span> daemon
 
@@ -75,8 +75,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
            master agentx
 
      This daemon implements both reception and sending. It will collect var-
-     ious information to send <span class="caps">LLDP</span> frames to all Ethernet interfaces,
-     including management address, speed and <span class="caps">VLAN</span> names.
+     ious information to send <span class="caps">LLDP</span> frames to all Ethernet interfaces, in-
+     cluding management address, speed and <span class="caps">VLAN</span> names.
 
      The options are as follows:
 
@@ -138,12 +138,12 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              use the <b>-k</b> flag described above).
 
      <b>-P</b> <u>platform</u>
-             Override the <span class="caps">CDP</span> platform name with the provided value. The
-             default description is the kernel name (Linux).
+             Override the <span class="caps">CDP</span> platform name with the provided value. The de-
+             fault description is the kernel name (Linux).
 
      <b>-x</b>      Enable <span class="caps">SNMP</span> subagent.  With this option, <b>lldpd</b> will enable an
-             <span class="caps">SNMP</span> subagent using AgentX protocol. This allows you to get
-             information about local system and remote systems through <span class="caps">SNMP</span>.
+             <span class="caps">SNMP</span> subagent using AgentX protocol. This allows you to get in-
+             formation about local system and remote systems through <span class="caps">SNMP</span>.
 
      <b>-X</b> <u>socket</u>
              Enable <span class="caps">SNMP</span> subagent using the specified socket.  <b>lldpd</b> will
@@ -175,19 +175,19 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              and switches that do not speak <span class="caps">LLDP</span>. If repeated, <span class="caps">EDP</span> packets
              will be sent even when there is no <span class="caps">EDP</span> peer detected.
 
-     <b>-l</b>      Force to send <span class="caps">LLDP</span> packets even when there is no <span class="caps">LLDP</span> peer
-             detected but there is a peer speaking another protocol
-             detected. By default, <span class="caps">LLDP</span> packets are sent when there is a
-             peer speaking <span class="caps">LLDP</span> detected or when there is no peer at all. If
-             repeated, <span class="caps">LLDP</span> is disabled.
+     <b>-l</b>      Force to send <span class="caps">LLDP</span> packets even when there is no <span class="caps">LLDP</span> peer de-
+             tected but there is a peer speaking another protocol detected.
+             By default, <span class="caps">LLDP</span> packets are sent when there is a peer speaking
+             <span class="caps">LLDP</span> detected or when there is no peer at all. If repeated,
+             <span class="caps">LLDP</span> is disabled.
 
      <b>-r</b>      Receive-only mode. With this switch, <b>lldpd</b> will not send any
              frame. It will only listen to neighbors.
 
      <b>-m</b> <u>management</u>
              Specify the management addresses of this system. As for inter-
-             faces (described below), this option can use wildcards and
-             inversions.  Without this option, the first IPv4 and the first
+             faces (described below), this option can use wildcards and in-
+             versions.  Without this option, the first IPv4 and the first
              IPv6 are used. If an exact <span class="caps">IP</span> address is provided, it is used
              as a management address without any check. If only negative
              patterns are provided, only one IPv4 and one IPv6 addresses are
@@ -205,8 +205,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              fied separated by commas.  It is also possible to blacklist an
              interface by suffixing it with an exclamation mark. It is pos-
              sible to whitelist an interface by suffixing it with two excla-
-             mation marks. A whitelisted interface beats a blacklisted
-             interface which beats a simple matched interface. For example,
+             mation marks. A whitelisted interface beats a blacklisted in-
+             terface which beats a simple matched interface. For example,
              with <u>eth*,!eth1,!eth2</u> <b>lldpd</b> will only use interfaces starting
              by <u>eth</u> with the exception of <u>eth1</u> and <u>eth2</u>.  While with
              <u>*,!eth*,!!eth1</u> <b>lldpd</b> will use all interfaces, except interfaces
@@ -221,16 +221,22 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              take the first <span class="caps">MAC</span> address from all the considered interfaces
              to compute the chassis <span class="caps">ID</span>. The logic of this option is the same
              as for <b>-I</b> flag: you can exclude interfaces with an exclamation
-             mark and use globbing to specify several interfaces. If all
-             interfaces are blacklisted (with <u>!*</u>), the system name is used
-             as a chassis <span class="caps">ID</span> instead.
+             mark and use globbing to specify several interfaces. If all in-
+             terfaces are blacklisted (with <u>!*</u>), the system name is used as
+             a chassis <span class="caps">ID</span> instead.
 
      <b>-M</b> <u>class</u>
-             Enable emission of <span class="caps">LLDP</span>-<span class="caps">MED</span> frame. The class should be one of
-             the following value:
+             Enable emission of <span class="caps">LLDP</span>-<span class="caps">MED</span> frame. Depending on the selected
+             class, the standard defines which set of <span class="caps">TLV</span> should be trans-
+             mitted. See section 10.2.1. Some devices may be strict about
+             this aspect. The class should be one of the following value:
              <b>1</b>     Generic Endpoint (Class I)
-             <b>2</b>     Media Endpoint (Class <span class="caps">II</span>)
-             <b>3</b>     Communication Device Endpoints (Class <span class="caps">III</span>)
+             <b>2</b>     Media Endpoint (Class <span class="caps">II</span>). In this case, the standard re-
+                   quires to define at least one network policy through
+                   <b>lldpcli</b>.
+             <b>3</b>     Communication Device Endpoints (Class <span class="caps">III</span>). In this case,
+                   the standard requires to define at least one network pol-
+                   icy through <b>lldpcli</b>.
              <b>4</b>     Network Connectivity Device
 
      <b>-i</b>      Disable <span class="caps">LLDP</span>-<span class="caps">MED</span> inventory <span class="caps">TLV</span> transmission.  <b>lldpd</b> will still
@@ -298,8 +304,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
      some tools use the <span class="caps">CDP</span> table and some other the <span class="caps">LLDP</span> table.
 
      The table below summarize all accepted values for the <b>-H</b> <u>hide</u> parame-
-     ter. The default value is <u>15</u> which corresponds to the corner case
-     described above. The <u>filter</u> column means that filtering is enabled. The
+     ter. The default value is <u>15</u> which corresponds to the corner case de-
+     scribed above. The <u>filter</u> column means that filtering is enabled. The
      <u>1proto</u> column tells that only one protocol will be kept. The <u>1neigh</u>
      column tells that only one neighbor will be kept.
 
@@ -345,7 +351,7 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
      &lt;pyr@openbsd.org&gt;, and Vincent Bernat &lt;bernat@luffy.cx&gt;.</div></div>
 
 <h1 id="lldpcli8">lldpcli.8</h1>
-<p>Here is the manual page for <code>lldpcli</code> and <code>lldpctl</code> (version&nbsp;1.0.3):</p>
+<p>Here is the manual page for <code>lldpcli</code> and <code>lldpctl</code> (version&nbsp;1.0.4):</p>
 <div class='manpage'><div><b><span class="caps">NAME</span></b>
      <b>lldpcli</b>, <b>lldpctl</b> &#8212; control <span class="caps">LLDP</span> daemon
 
@@ -389,8 +395,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
      if none are specified. This command is mostly kept for backward compat-
      ibility with older versions.
 
-     The following commands are supported by <b>lldpcli</b>.  When there is no
-     ambiguity, the keywords can be abbreviated. For example, <b>show</b> <b>neighbors</b>
+     The following commands are supported by <b>lldpcli</b>.  When there is no am-
+     biguity, the keywords can be abbreviated. For example, <b>show</b> <b>neighbors</b>
      <b>ports</b> <b>eth0</b> <b>summary</b> and <b>sh</b> <b>neigh</b> <b>p</b> <b>eth0</b> <b>sum</b> are the same command.
 
        <b>exit</b>
@@ -419,8 +425,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
        <b>show</b> <b>interfaces</b> [ports <u>ethX</u> [,&#8230;]] [<b>details</b> | <b>summary</b>] [<b>hidden</b>]
 
              Display information about each local interface known by
-             lldpd(8) daemon. With <b>summary</b>, only the name and the port
-             description of each local interface will be displayed. On the
+             lldpd(8) daemon. With <b>summary</b>, only the name and the port de-
+             scription of each local interface will be displayed. On the
              other hand, with <b>details</b>, all available information will be
              displayed, giving a verbose view. When using <b>hidden</b>, also dis-
              play local ports hidden by the smart filter. When specifying
@@ -429,9 +435,9 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
 
        <b>show</b> <b>chassis</b> [<b>details</b> | <b>summary</b>]
 
-             Display information about local chassis. With <b>summary</b>, most
-             details are skipped. On the other hand, with <b>details</b>, all
-             available information will be displayed, giving a verbose view.
+             Display information about local chassis. With <b>summary</b>, most de-
+             tails are skipped. On the other hand, with <b>details</b>, all avail-
+             able information will be displayed, giving a verbose view.
 
        <b>watch</b> [ports <u>ethX</u> [,&#8230;]] [<b>details</b> | <b>summary</b>] [<b>hidden</b>] [<b>limit</b> <u>X</u>]
 
@@ -450,8 +456,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
 
              Report <span class="caps">LLDP</span>-related statistics, like the number of <span class="caps">LLDPDU</span>
              transmitted, received, discarded or unrecognized. When specify-
-             ing ports, only the statistics from the given port are
-             reported. With <b>summary</b> the statistics of each port is summed.
+             ing ports, only the statistics from the given port are re-
+             ported. With <b>summary</b> the statistics of each port is summed.
 
        <b>update</b>
 
@@ -479,8 +485,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
        <b>unconfigure</b> <b>system</b> <b>description</b>
 
              Do not override chassis description and use a value computed
-             from node name, kernel name, kernel version, build date and
-             architecture instead.
+             from node name, kernel name, kernel version, build date and ar-
+             chitecture instead.
 
        <b>configure</b> <b>system</b> <b>chassisid</b> <u>description</u>
 
@@ -511,15 +517,15 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              fied separated by commas.  It is also possible to blacklist an
              interface by suffixing it with an exclamation mark. It is pos-
              sible to whitelist an interface by suffixing it with two excla-
-             mation marks. A whitelisted interface beats a blacklisted
-             interfaces which beats a simple matched interface. For example,
+             mation marks. A whitelisted interface beats a blacklisted in-
+             terfaces which beats a simple matched interface. For example,
              with <u>eth*,!eth1,!eth2</u> <b>lldpd</b> will only use interfaces starting
              by <u>eth</u> with the exception of <u>eth1</u> and <u>eth2</u>.  While with
              <u>*,!eth*,!!eth1</u> <b>lldpcli</b> will use all interfaces, except inter-
-             faces starting by <u>eth</u> with the exception of <u>eth1</u>.  When an
-             exact match is found, it will circumvent some tests. For exam-
-             ple, if <u>eth0.12</u> is specified, it will be accepted even if this
-             is a <span class="caps">VLAN</span> interface.
+             faces starting by <u>eth</u> with the exception of <u>eth1</u>.  When an ex-
+             act match is found, it will circumvent some tests. For example,
+             if <u>eth0.12</u> is specified, it will be accepted even if this is a
+             <span class="caps">VLAN</span> interface.
 
        <b>unconfigure</b> <b>system</b> <b>interface</b> <b>pattern</b>
 
@@ -588,8 +594,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
        <b>configure</b> <b>system</b> <b>ip</b> <b>management</b> <b>pattern</b> <u>pattern</u>
 
              Specify the management addresses of this system. As for inter-
-             faces (described above), this option can use wildcards and
-             inversions.  Without this option, the first IPv4 and the first
+             faces (described above), this option can use wildcards and in-
+             versions.  Without this option, the first IPv4 and the first
              IPv6 are used. If an exact <span class="caps">IP</span> address is provided, it is used
              as a management address without any check. If only negative
              patterns are provided, only one IPv4 and one IPv6 addresses are
@@ -622,15 +628,21 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              Using <b>local</b> might lead to a duplicate <span class="caps">MAC</span> address on the net-
              work (but this is quite unlikely).
 
+       <b>configure</b> <b>system</b> <b>max-neighbors</b> <u>neighbors</u>
+
+             Change the maximum number of neighbors accepted (for each pro-
+             tocol) on an interface. This is a global value. The default is
+             32. This setting only applies to future neighbors.
+
        <b>configure</b> <b>lldp</b> <b>agent-type</b> <b>nearest-bridge</b> | <b>nearest-non-tpmr-bridge</b> |
        <b>nearest-customer-bridge</b>
 
              The destination <span class="caps">MAC</span> address used to send <span class="caps">LLDPDU</span> allows an agent
              to control the propagation of LLDPDUs. By default, the
              01:80:c2:00:00:0e <span class="caps">MAC</span> address is used and limit the propagation
-             of the <span class="caps">LLDPDU</span> to the nearest bridge (<b>nearest-bridge</b>).  To
-             instruct <b>lldpd</b> to use the 01:80:c2:00:00:03 <span class="caps">MAC</span> address
-             instead, use <b>nearest-nontpmr-bridge</b> instead.  To use the
+             of the <span class="caps">LLDPDU</span> to the nearest bridge (<b>nearest-bridge</b>).  To in-
+             struct <b>lldpd</b> to use the 01:80:c2:00:00:03 <span class="caps">MAC</span> address instead,
+             use <b>nearest-nontpmr-bridge</b> instead.  To use the
              01:80:c2:00:00:00 <span class="caps">MAC</span> address instead, use
              <b>nearest-customer-bridge</b> instead.
 
@@ -638,12 +650,12 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
 
        <b>configure</b> [ports <u>ethX</u> [,&#8230;]] <b>lldp</b> <b>portidsubtype</b> <b>local</b> <u>value</u>
 
-             Force port <span class="caps">ID</span> subtype. By default, <b>lldpd</b> will use the <span class="caps">MAC</span>
-             address as port identifier and the interface name as port
-             description, unless the interface has an alias. In this case,
-             the interface name will be used as port identifier and the
-             description will be the interface alias. With this command, you
-             can force the port identifier to be the interface name (with
+             Force port <span class="caps">ID</span> subtype. By default, <b>lldpd</b> will use the <span class="caps">MAC</span> ad-
+             dress as port identifier and the interface name as port de-
+             scription, unless the interface has an alias. In this case, the
+             interface name will be used as port identifier and the descrip-
+             tion will be the interface alias. With this command, you can
+             force the port identifier to be the interface name (with
              <b>ifname</b>), the <span class="caps">MAC</span> address (with <b>macaddress</b>) or a local value
              (with <b>value</b>).  In the latest case, the local value should be
              provided.
@@ -668,8 +680,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
        <b>configure</b> [ports <u>ethX</u> [,&#8230;]] <b>lldp</b> <b>status</b> <u>rx-and-tx</u> | <u>rx-only</u> |
        <u>tx-only</u> | <u>disabled</u>
 
-             Configure the administrative status of the given port. By
-             default, all ports are configured to be in <u>rx-and-tx</u> mode. This
+             Configure the administrative status of the given port. By de-
+             fault, all ports are configured to be in <u>rx-and-tx</u> mode. This
              means they can receive and transmit <span class="caps">LLDP</span> frames (as well as
              other protocols if needed). In <u>rx-only</u> mode, they won&#8217;t emit
              any frames and in <u>tx-only</u> mode, they won&#8217;t receive any frames.
@@ -687,8 +699,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              should be a comma-separated list of bytes in hex format.  <u>oui</u>
              must be exactly 3-byte long.  If <u>add</u> is specified then the <span class="caps">TLV</span>
              will be added. This is the default action.  If <u>replace</u> is spec-
-             ified then all TLVs with the same <u>oui</u> and <u>subtype</u> will be
-             replaced.
+             ified then all TLVs with the same <u>oui</u> and <u>subtype</u> will be re-
+             placed.
 
        <b>unconfigure</b> <b>lldp</b> <b>custom-tlv</b> [<b>oui</b> <u>oui</u>] [<b>subtype</b> <u>subtype</u>]
 
@@ -718,8 +730,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              decimal floating point number followed either by <u>N</u> or <u>S</u>.  The
              format of <u>longitude</u> is a decimal floating point number followed
              either by <u>E</u> or <u>W</u>.  <u>altitude</u> is a decimal floating point number
-             followed either by <u>m</u> when expressed in meters or <u>f</u> when
-             expressed in floors. A space is expected between the floating
+             followed either by <u>m</u> when expressed in meters or <u>f</u> when ex-
+             pressed in floors. A space is expected between the floating
              point number and the unit.  <u>datum</u> is one of those values:
                      &raquo;   <span class="caps">WGS84</span>
                      &raquo;   <span class="caps">NAD83</span>
@@ -801,8 +813,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
 
              <u>priority</u> allows one to specify <span class="caps">IEEE</span> 802.1d / <span class="caps">IEEE</span> 802.1p Layer
              2 Priority, also known as Class of Service (CoS), to be used
-             for the specified application type. This field is usually
-             ignored if no <span class="caps">VLAN</span> is specified. The names match 802.1D-2004
+             for the specified application type. This field is usually ig-
+             nored if no <span class="caps">VLAN</span> is specified. The names match 802.1D-2004
              standard (table G-2). Some more recent standards may use dif-
              ferent labels. Only the numeric values should be relied upon.
              The accepted labels are:
@@ -817,8 +829,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
 
              <u>dscp</u> represents the <span class="caps">DSCP</span> value to be advertised for the given
              network policy.  DiffServ/Differentiated Services Code Point
-             (<span class="caps">DSCP</span>) value as defined in <span class="caps">IETF</span> <span class="caps">RFC</span> 2474 for the specified
-             application type. Value: 0 (default per <span class="caps">RFC</span> 2475) through 63.
+             (<span class="caps">DSCP</span>) value as defined in <span class="caps">IETF</span> <span class="caps">RFC</span> 2474 for the specified ap-
+             plication type. Value: 0 (default per <span class="caps">RFC</span> 2475) through 63.
              Note: The class selector <span class="caps">DSCP</span> values are backwards compatible
              for devices that only support the old <span class="caps">IP</span> precedence Type of
              Service (ToS) format. (See the RFCs for what these values mean)
@@ -833,8 +845,8 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
              Advertise the <span class="caps">LLDP</span>-<span class="caps">MED</span> <span class="caps">POE</span>-<span class="caps">MDI</span> <span class="caps">TLV</span> for the given ports or for
              all interfaces if no port is provided.  One can act as a <span class="caps">PD</span>
              (power consumer) or a <span class="caps">PSE</span> (power provider). No check is done on
-             the validity of the parameters while <span class="caps">LLDP</span>-<span class="caps">MED</span> requires some
-             restrictions:
+             the validity of the parameters while <span class="caps">LLDP</span>-<span class="caps">MED</span> requires some re-
+             strictions:
 
              &raquo;   <span class="caps">PD</span> shall never request more power than physical 802.3af
                  class.
@@ -847,13 +859,13 @@ the daemon. Both parts are documented in their manual&nbsp;pages:</p>
 
              &raquo;   <span class="caps">PSE</span> may request reduced power using conservation mode
 
-             &raquo;   Being <span class="caps">PSE</span> or <span class="caps">PD</span> is a global parameter, not a per-port
-                 parameter.  <b>lldpcli</b> does not enforce this: a port can be
-                 set as <span class="caps">PD</span> or <span class="caps">PSE</span>. <span class="caps">LLDP</span>-<span class="caps">MED</span> also requires for a <span class="caps">PSE</span> to only
-                 have one power source (primary or backup). Again, <b>lldpcli</b>
-                 does not enforce this. Each port can have its own power
-                 source. The same applies for <span class="caps">PD</span> and power priority. <span class="caps">LLDP</span>-
-                 <span class="caps">MED</span> <span class="caps">MIB</span> does not allow this kind of representation.
+             &raquo;   Being <span class="caps">PSE</span> or <span class="caps">PD</span> is a global parameter, not a per-port pa-
+                 rameter.  <b>lldpcli</b> does not enforce this: a port can be set
+                 as <span class="caps">PD</span> or <span class="caps">PSE</span>. <span class="caps">LLDP</span>-<span class="caps">MED</span> also requires for a <span class="caps">PSE</span> to only have
+                 one power source (primary or backup). Again, <b>lldpcli</b> does
+                 not enforce this. Each port can have its own power source.
+                 The same applies for <span class="caps">PD</span> and power priority. <span class="caps">LLDP</span>-<span class="caps">MED</span> <span class="caps">MIB</span>
+                 does not allow this kind of representation.
 
              Valid types are:
                <b>pse</b>   Power Sourcing Entity (power provider)
