@@ -129,6 +129,23 @@ class LinksFactory(object):
         ipr.link('set', index=idx, state='up')
         return idx
 
+    def bridge_vlan(self, iface, vid, tagged=True, pvid=False, remove=False):
+        ipr = pyroute2.IPRoute()
+        idx = ipr.link_lookup(ifname=iface)[0]
+        flags = []
+        if not tagged:
+            flags.append('untagged')
+        if pvid:
+            flags.append('pvid')
+        if not remove:
+            ipr.vlan_filter('del', index=idx,
+                            af_spec={'attrs': [['IFLA_BRIDGE_VLAN_INFO',
+                                                {'vid': 1}]]})
+        ipr.vlan_filter('add' if remove else 'del', index=idx,
+                        af_spec={'attrs': [['IFLA_BRIDGE_VLAN_INFO',
+                                            {'vid': vid,
+                                             'flags': flags}]]})
+
     def up(self, name):
         ipr = pyroute2.IPRoute()
         idx = ipr.link_lookup(ifname=name)[0]

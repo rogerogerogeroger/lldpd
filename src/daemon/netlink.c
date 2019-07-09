@@ -25,6 +25,7 @@
 #include <net/if_arp.h>
 #include <linux/netlink.h>
 #include <linux/rtnetlink.h>
+#include <linux/if_bridge.h>
 
 #define NETLINK_BUFFER 4096
 
@@ -226,13 +227,50 @@ netlink_parse_linkinfo(struct interfaces_device *iff, struct rtattr *rta, int le
 		    RTA_PAYLOAD(link_info_attrs[IFLA_INFO_DATA]));
 
 		if (vlan_link_info_data_attrs[IFLA_VLAN_ID]) {
-			iff->vlanid = *(uint16_t *)RTA_DATA(vlan_link_info_data_attrs[IFLA_VLAN_ID]);
+			iff->vlanids[0] = *(uint16_t *)RTA_DATA(vlan_link_info_data_attrs[IFLA_VLAN_ID]);
 			log_debug("netlink", "VLAN ID for interface %s is %d",
-			    iff->name, iff->vlanid);
+			    iff->name, iff->vlanids[0]);
 		}
 	}
 
 	free(kind);
+}
+
+/**
+ * Parse a `afspec` attributes.
+ *
+ * @param iff where to put the result
+ * @param rta afspec attribute
+ * @param len length of attributes
+ */
+static void
+netlink_parse_afspec(struct interfaces_device *iff, struct rtattr *rta, int len)
+{
+	int i = 0;
+	while (RTA_OK(rta, len)) {
+		struct bridge_vlan_info *vinfo;
+		switch (rta->rta_type) {
+		case IFLA_BRIDGE_VLAN_INFO:
+			vinfo = RTA_DATA(rta);
+			log_debug("netlink", "found VLAN %d on interface %s",
+			    vinfo->vid, iff->name ? iff->name : "(unknown)");
+			iff->vlanids[i] = vinfo->vid;
+			if (vinfo->flags & (BRIDGE_VLAN_INFO_PVID | BRIDGE_VLAN_INFO_UNTAGGED))
+				iff->pvid = vinfo->vid;
+			break;
+		default:
+			log_debug("netlink", "unknown afspec attribute type %d for iface %s",
+			    rta->rta_type, iff->name ? iff->name : "(unknown)");
+			break;
+		}
+		rta = RTA_NEXT(rta, len);
+	}
+	/* All enbridged interfaces will have VLAN 1 by default, ignore it */
+	if (iff->vlanids[0] == 1 && iff->vlanids[1] == 0 && iff->pvid == 1) {
+		log_debug("netlink", "found only default VLAN 1 on interface %s, removing",
+		    iff->name ? iff->name : "(unknown)");
+		iff->vlanids[0] = iff->pvid = 0;
+	}
 }
 
 /**
@@ -303,6 +341,9 @@ netlink_parse_link(struct nlmsghdr *msg,
 			break;
 		case IFLA_LINKINFO:
 			netlink_parse_linkinfo(iff, RTA_DATA(attribute), RTA_PAYLOAD(attribute));
+			break;
+		case IFLA_AF_SPEC:
+			netlink_parse_afspec(iff, RTA_DATA(attribute), RTA_PAYLOAD(attribute));
 			break;
 		default:
 			log_debug("netlink", "unhandled link attribute type %d for iface %s",
@@ -423,8 +464,8 @@ netlink_merge(struct interfaces_device *old, struct interfaces_device *new)
 		new->mtu = old->mtu;
 	if (new->type == 0)
 		new->type = old->type;
-	if (new->vlanid == 0)
-		new->vlanid = old->vlanid;
+	if (new->vlanids[0] == 0 && new->type == IFACE_VLAN_T)
+		new->vlanids[0] = old->vlanids[0];
 
 	/* It's not possible for lower link to change */
 	new->lower_idx = old->lower_idx;
